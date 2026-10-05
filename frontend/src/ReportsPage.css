@@ -1,0 +1,480 @@
+/* =========================================================
+   REPORTS PAGE
+   Uses the same tokens as App.css (--panel, --gold, --hairline ...).
+   Every class starts with rp- so nothing else in the app is touched.
+   Rules are scoped with .rp-page so they win over ".content *".
+========================================================= */
+
+.rp-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rp-page .customers-header {
+  margin-bottom: 0;
+}
+
+/* ---------- Controls ---------- */
+
+.rp-page .rp-control {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- Headline numbers ---------- */
+
+.rp-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.rp-kpi {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 16px 18px 15px;
+}
+
+.rp-page .rp-kpi span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.rp-page .rp-kpi strong {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--cream);
+}
+
+.rp-page .rp-kpi small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.rp-page .rp-warn {
+  color: var(--orange);
+}
+
+.rp-page .rp-good {
+  color: var(--green);
+}
+
+.rp-page .rp-bad {
+  color: var(--red);
+}
+
+/* the global "td strong" rule would otherwise turn these cream */
+.rp-page .rp-good strong {
+  color: var(--green);
+}
+
+.rp-page .rp-bad strong {
+  color: var(--red);
+}
+
+/* ---------- Cards ---------- */
+
+.rp-card {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 20px 22px 22px;
+  min-width: 0;
+}
+
+.rp-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.rp-page .rp-card-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.rp-page .rp-card-head p {
+  margin: 4px 0 0;
+  max-width: 62ch;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.rp-two {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.rp-page .rp-empty {
+  margin: 8px 0 4px;
+  padding: 26px 12px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.rp-page .rp-note {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- Monthly chart ---------- */
+
+.rp-page .rp-legend {
+  display: flex;
+  gap: 18px;
+  font-size: 12.5px;
+  color: var(--cream-dim);
+}
+
+.rp-page .rp-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.rp-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.rp-dot-invoiced {
+  background: var(--gold);
+}
+
+.rp-dot-collected {
+  background: var(--green);
+}
+
+.rp-chart {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+}
+
+.rp-page .rp-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 210px;
+  font-size: 10.5px;
+  line-height: 1;
+  color: var(--faint);
+  text-align: right;
+}
+
+.rp-page .rp-axis span {
+  text-align: right;
+}
+
+.rp-plot {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.rp-cols {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+/* three faint guide lines: top, middle, bottom of the bars area */
+.rp-cols::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 210px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--hairline), var(--hairline)) 0 0 / 100% 1px no-repeat,
+    linear-gradient(var(--hairline), var(--hairline)) 0 50% / 100% 1px no-repeat,
+    linear-gradient(var(--hairline-strong), var(--hairline-strong)) 0 100% / 100% 1px no-repeat;
+}
+
+.rp-col {
+  position: relative;
+  flex: 1 0 76px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rp-bars {
+  height: 210px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 4px;
+}
+
+.rp-bar-wrap {
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.rp-page .rp-val {
+  height: 16px;
+  font-size: 10px;
+  line-height: 16px;
+  white-space: nowrap;
+  color: var(--muted);
+  text-align: center;
+}
+
+.rp-dense .rp-val {
+  visibility: hidden;
+}
+
+.rp-bar {
+  width: 22px;
+  min-height: 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.rp-bar-invoiced {
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold-dim));
+}
+
+.rp-bar-collected {
+  background: var(--green);
+  opacity: 0.85;
+}
+
+.rp-col-label {
+  height: 34px;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.rp-page .rp-col-label span {
+  font-size: 11.5px;
+  color: var(--cream-dim);
+  text-align: center;
+}
+
+.rp-page .rp-col-label small {
+  font-size: 10px;
+  color: var(--faint);
+  text-align: center;
+}
+
+/* ---------- Stacked bars + keys (owed, quotations) ---------- */
+
+.rp-stack {
+  display: flex;
+  height: 12px;
+  gap: 2px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.rp-stack > div {
+  min-width: 4px;
+}
+
+.rp-seg-current,
+.rp-seg-q-sent {
+  background: var(--blue);
+}
+
+.rp-seg-30 {
+  background: var(--gold);
+}
+
+.rp-seg-60 {
+  background: var(--orange);
+}
+
+.rp-seg-60p,
+.rp-seg-q-rejected {
+  background: var(--red);
+}
+
+.rp-seg-q-accepted {
+  background: var(--green);
+}
+
+.rp-seg-q-draft {
+  background: var(--faint);
+}
+
+.rp-key {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.rp-page .rp-key li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--cream-dim);
+}
+
+.rp-page .rp-key li strong {
+  margin-left: auto;
+  font-weight: 600;
+  color: var(--cream);
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+}
+
+.rp-page .rp-pair span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.rp-page .rp-pair strong {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+/* ---------- Tables ---------- */
+
+.rp-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+}
+
+.rp-page th.rp-num,
+.rp-page td.rp-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-page .rp-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.rp-page .rp-meter-cell {
+  min-width: 150px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rp-page .rp-meter-cell > span {
+  display: block;
+  color: var(--cream);
+}
+
+.rp-meter {
+  height: 5px;
+  margin-top: 7px;
+  border-radius: 3px;
+  background: var(--panel-alt);
+  overflow: hidden;
+}
+
+.rp-meter > i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.rp-meter-in {
+  background: var(--green);
+}
+
+.rp-meter-out {
+  background: var(--orange);
+}
+
+.rp-meter-gold {
+  background: var(--gold);
+}
+
+.rp-link-btn {
+  margin-top: 12px;
+  padding: 6px 2px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-bright);
+  cursor: pointer;
+}
+
+.rp-link-btn:hover {
+  text-decoration: underline;
+}
+
+.rp-link-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 1100px) {
+  .rp-two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rp-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .rp-kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rp-card {
+    padding: 16px;
+  }
+}

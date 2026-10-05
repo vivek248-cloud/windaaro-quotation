@@ -1,0 +1,488 @@
+/* =========================================================
+  SETTINGS PAGE
+  Uses the tokens from App.css (charcoal & gold, Fraunces + Inter).
+  Import order matters: App.tsx imports App.css first, so the
+  rules here win over the shared ones where they overlap.
+========================================================= */
+
+/* .content clips horizontal overflow, which also stops `position: sticky`
+  from working inside it. This page needs sticky for the preview and the
+   save bar, so it opts out. Nothing here is wide enough to overflow. */
+.content.settings-page {
+  overflow: visible;
+}
+
+/* Sidebar logo: a logo with dark lettering would vanish on the dark
+   sidebar, so it sits on a light chip when the letterhead is Light. */
+.logo.logo-on-light {
+  margin-bottom: 18px;
+  padding: 12px 10px;
+  background: #ffffff;
+  border-bottom: 0;
+  border-radius: var(--radius-md);
+}
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.settings-panel .panel-header {
+  margin-bottom: 18px;
+}
+
+/* ---------- fields ---------- */
+
+.settings-field small {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.settings-hint {
+  color: var(--muted);
+}
+
+.settings-error {
+  color: var(--red);
+}
+
+.settings-required {
+  color: var(--gold);
+}
+
+.settings-field.has-error input,
+.settings-field.has-error textarea {
+  border-color: var(--red-line);
+  background: rgba(226, 102, 95, 0.06);
+}
+
+.settings-field.has-error input:focus,
+.settings-field.has-error textarea:focus {
+  border-color: var(--red);
+}
+
+.settings-field textarea {
+  line-height: 1.55;
+}
+
+/* ---------- logo ---------- */
+
+.settings-logo-row {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.settings-logo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  padding: 18px;
+  border: 1.5px dashed var(--hairline-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.settings-logo-stage.tone-dark {
+  background: #000000;
+}
+
+.settings-logo-stage.tone-light {
+  background: #ffffff;
+}
+
+.settings-logo-stage.drag {
+  border-color: var(--gold);
+}
+
+.settings-logo-stage img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.settings-logo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.settings-logo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-logo-actions .small-btn {
+  margin-right: 0;
+  padding: 9px 14px;
+}
+
+.settings-logo-actions .small-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.settings-tone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-tone-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.settings-tone-toggle {
+  max-width: 260px;
+  margin-bottom: 0;
+}
+
+/* ---------- terms ---------- */
+
+.settings-terms-grid {
+  row-gap: 10px;
+}
+
+.settings-terms-restore {
+  grid-column: 1 / -1;
+  margin: -2px 0 8px;
+}
+
+.settings-terms-restore .small-btn {
+  margin-right: 0;
+}
+
+.settings-terms-restore:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- save bar ---------- */
+
+.settings-savebar {
+  position: sticky;
+  bottom: 16px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lift);
+  transition: border-color 0.2s ease;
+}
+
+.settings-savebar.dirty {
+  border-color: var(--gold-dim);
+}
+
+.settings-status {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.settings-status.status-dirty {
+  color: var(--gold-bright);
+}
+
+.settings-status.status-error {
+  color: var(--red);
+}
+
+.settings-savebar-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.settings-savebar-actions .cancel-btn:disabled,
+.settings-savebar-actions .gold-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: none;
+}
+
+/* ---------- live preview ---------- */
+
+.settings-preview {
+  position: sticky;
+  top: 100px;
+  min-width: 0;
+}
+
+.settings-preview-head {
+  margin-bottom: 12px;
+}
+
+.settings-preview-head h3 {
+  font-size: 16.5px;
+}
+
+/* The sheet mirrors the printed PDF: white paper, gold rules, dark
+   logo band. Type is set in Arial like the PDF, not the app fonts. */
+.settings-paper {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #d4af37;
+  border-radius: 3px;
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.settings-paper,
+.settings-paper * {
+  text-align: left;
+}
+
+.sp-topbar {
+  height: 6px;
+  background: #a5872c;
+}
+
+.sp-band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+.sp-band.tone-dark {
+  background: #000000;
+}
+
+.sp-band.tone-light {
+  background: #ffffff;
+}
+
+.sp-band img {
+  display: block;
+  height: 52px;
+  max-width: 90%;
+  width: auto;
+  object-fit: contain;
+}
+
+.sp-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 14px 10px;
+  color: #333333;
+}
+
+.sp-strip .sp-address,
+.sp-strip .sp-contact,
+.sp-strip .sp-empty {
+  text-align: center;
+}
+
+.sp-strip .sp-address div {
+  text-align: center;
+}
+
+.sp-address-bold {
+  font-weight: 700;
+}
+
+.sp-contact span {
+  display: inline-block;
+  margin: 0 6px;
+}
+
+.sp-contact b {
+  color: #8a6d1f;
+}
+
+.sp-gst-bold {
+  font-weight: 700;
+}
+
+.sp-empty {
+  padding: 2px 8px;
+  border: 1px dashed #cfc7ad;
+  border-radius: 3px;
+  color: #7a7462;
+}
+
+.sp-title {
+  padding: 5px 0;
+  border-top: 1px solid #d4af37;
+  border-bottom: 1px solid #d4af37;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.settings-paper .sp-title {
+  text-align: center;
+}
+
+.sp-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.sp-skeleton-meta,
+.sp-skeleton-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sp-bar {
+  display: block;
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background: #ece6d3;
+}
+
+.sp-bar-head {
+  height: 8px;
+  background: #f7efdc;
+  border: 1px solid #e3d5a8;
+}
+
+.sp-section-title {
+  margin-bottom: 5px;
+  padding: 4px 8px;
+  background: #e9e4d6;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.sp-bank,
+.sp-terms {
+  padding: 4px 14px 8px;
+}
+
+.sp-bank-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 14px;
+  padding: 0 4px;
+}
+
+.sp-bank-rows div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sp-bank-rows span {
+  color: #777777;
+  font-size: 8.5px;
+}
+
+.sp-bank-rows strong {
+  overflow-wrap: anywhere;
+}
+
+.sp-terms p {
+  margin: 2px 4px;
+  color: #333333;
+  font-size: 9.5px;
+}
+
+.sp-terms p.sp-more {
+  color: #8a8472;
+}
+
+.sp-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 14px 10px;
+}
+
+.sp-sign-image {
+  display: block;
+  height: 44px;
+  max-width: 160px;
+  width: auto;
+  object-fit: contain;
+  margin: 2px 0;
+}
+
+.settings-paper .sp-sign * {
+  text-align: right;
+}
+
+.sp-sign strong {
+  color: #a5872c;
+}
+
+.sp-footer {
+  padding: 7px 10px;
+  background: #1a1a1a;
+  color: #d6d0c4;
+  font-size: 8.5px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.settings-paper .sp-footer {
+  text-align: center;
+}
+
+/* ---------- when sticky stops making sense ---------- */
+
+@media (max-width: 1180px) {
+  .settings-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .settings-preview {
+    position: static;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 720px) {
+  .settings-logo-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .settings-savebar {
+    flex-direction: column;
+    align-items: stretch;
+    bottom: 8px;
+  }
+
+  .settings-savebar-actions {
+    justify-content: flex-end;
+  }
+
+  .settings-preview {
+    max-width: none;
+  }
+}
